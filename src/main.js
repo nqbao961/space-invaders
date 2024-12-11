@@ -9,8 +9,8 @@ const game = new Phaser.Game({
   pixelArt: true,
   scale: {
     parent: 'game-container',
-    width: 450,
-    height: 640,
+    width: '100%',
+    height: '100%',
     autoCenter: Phaser.Scale.CENTER_BOTH,
     mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
   },
@@ -19,7 +19,7 @@ const game = new Phaser.Game({
     default: 'arcade',
     arcade: {
       gravity: { y: 0, x: 0 },
-      debug: false,
+      debug: true,
     },
   },
 });

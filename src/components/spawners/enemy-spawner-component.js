@@ -83,8 +83,8 @@ export class EnemySpawnerComponent {
       return;
     }
 
-    const x = Phaser.Math.RND.between(30, this.#scene.scale.width - 30);
-    const enemy = this.#group.get(x, -20);
+    const y = Phaser.Math.RND.between(30, this.#scene.scale.height - 30);
+    const enemy = this.#group.get(this.#scene.scale.width - 20, y);
     enemy.reset();
     this.#spawnAt = this.#spawnInterval;
   }

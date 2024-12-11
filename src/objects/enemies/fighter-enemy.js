@@ -45,9 +45,9 @@ export class FighterEnemy extends Phaser.GameObjects.Container {
     this.body.setSize(24, 24);
     this.body.setOffset(-12, -12);
 
-    this.#shipSprite = scene.add.sprite(0, 0, 'fighter', 0);
-    this.#shipEngineSprite = scene.add.sprite(0, 0, 'fighter_engine').setFlipY(true);
-    this.#shipEngineSprite.play('fighter_engine');
+    this.#shipSprite = scene.add.sprite(0, 0, 'fighter', 0).setRotation(1.57);
+    this.#shipEngineSprite = scene.add.sprite(0, 0, 'fighter_engine').setFlipY(true).setRotation(1.57);
+    this.#shipEngineSprite.play('fighter_engine').setRotation(1.57);
     this.add([this.#shipEngineSprite, this.#shipSprite]);
 
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
@@ -109,7 +109,7 @@ export class FighterEnemy extends Phaser.GameObjects.Container {
         interval: CONFIG.ENEMY_FIGHTER_BULLET_INTERVAL,
         lifespan: CONFIG.ENEMY_FIGHTER_BULLET_LIFESPAN,
         maxCount: CONFIG.ENEMY_FIGHTER_BULLET_MAX_COUNT,
-        yOffset: 10,
+        xOffset: 10,
         flipY: true,
       },
       this.#eventBusComponent

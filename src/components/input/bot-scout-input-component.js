@@ -34,9 +34,11 @@ export class BotScoutInputComponent extends InputComponent {
     this.#gameObject = gameObject;
     this.#startX = this.#gameObject.x;
     this.#maxXMovement = CONFIG.ENEMY_SCOUT_MOVEMENT_MAX_X;
-    this._right = true;
-    this._left = false;
-    this._down = true;
+    // this._right = true;
+    // this._left = false;
+    this._down = false;
+    this._left = true;
+    this._up = true;
   }
 
   /**
@@ -55,12 +57,20 @@ export class BotScoutInputComponent extends InputComponent {
    * @returns {void}
    */
   update() {
+    setInterval(() => {
+      this._down = true;
+      this._up = false;
+    }, 300);
+    setInterval(() => {
+      this._down = false;
+      this._up = true;
+    }, 500);
     if (this.#gameObject.x > this.#startX + this.#maxXMovement) {
-      this._left = true;
-      this._right = false;
+      // this._left = true;
+      // this._right = false;
     } else if (this.#gameObject.x < this.#startX - this.#maxXMovement) {
-      this._left = false;
-      this._right = true;
+      // this._left = false;
+      // this._right = true;
     }
   }
 }

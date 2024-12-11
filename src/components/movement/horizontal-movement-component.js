@@ -53,6 +53,10 @@ export class HorizontalMovementComponent {
       this.#gameObject.body.velocity.x -= this.#velocity;
     } else if (this.#inputComponent.rightIsDown) {
       this.#gameObject.body.velocity.x += this.#velocity;
+    } else if (this.#inputComponent.downIsDown) {
+      this.#gameObject.body.velocity.y += this.#velocity;
+    } else if (this.#inputComponent.upIsDown) {
+      this.#gameObject.body.velocity.y -= this.#velocity;
     } else {
       this.#gameObject.body.setAngularAcceleration(0);
     }

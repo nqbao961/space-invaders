@@ -9,7 +9,7 @@ import { CUSTOM_EVENTS, EventBusComponent } from '../events/event-bus-component.
  * @property {number} interval
  * @property {number} lifespan
  * @property {number} maxCount
- * @property {number} yOffset
+ * @property {number} xOffset
  * @property {boolean} flipY
  */
 
@@ -92,15 +92,16 @@ export class WeaponComponent {
         return;
       }
 
-      const x = this.#gameObject.x;
-      const y = this.#gameObject.y + this.#bulletConfig.yOffset;
+      const x = this.#gameObject.x - this.#bulletConfig.xOffset;
+      const y = this.#gameObject.y;
       bullet.enableBody(true, x, y, true, true);
-      bullet.body.velocity.y -= this.#bulletConfig.speed;
+      bullet.body.velocity.x += this.#bulletConfig.speed;
       bullet.setState(this.#bulletConfig.lifespan);
       bullet.play('bullet');
       bullet.setScale(0.8);
       bullet.body.setSize(14, 18);
       bullet.setFlipY(this.#bulletConfig.flipY);
+      bullet.setRotation(1.57);
 
       this.#fireBulletInterval = this.#bulletConfig.interval;
       this.#eventBusComponent.emit(CUSTOM_EVENTS.SHIP_SHOOT);

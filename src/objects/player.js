@@ -35,7 +35,7 @@ export class Player extends Phaser.GameObjects.Container {
    * @param {EventBusComponent} eventBusComponent
    */
   constructor(scene, eventBusComponent) {
-    super(scene, scene.scale.width / 2, scene.scale.height - 32, []);
+    super(scene, 0, 0, []);
     this.#eventBusComponent = eventBusComponent;
 
     // add game object to scene and enabled physics body
@@ -46,10 +46,10 @@ export class Player extends Phaser.GameObjects.Container {
     this.body.setCollideWorldBounds(true);
     this.setDepth(2);
 
-    this.#shipSprite = scene.add.sprite(0, 0, 'ship');
-    this.#shipEngineSprite = scene.add.sprite(0, 0, 'ship_engine');
-    this.#shipEngineThrusterSprite = scene.add.sprite(0, 0, 'ship_engine_thruster');
-    this.#shipEngineThrusterSprite.play('ship_engine_thruster');
+    this.#shipSprite = scene.add.sprite(0, 0, 'ship').setRotation(1.57);
+    this.#shipEngineSprite = scene.add.sprite(0, 0, 'ship_engine').setRotation(1.57);
+    this.#shipEngineThrusterSprite = scene.add.sprite(0, 0, 'ship_engine_thruster').setRotation(1.57);
+    this.#shipEngineThrusterSprite.play('ship_engine_thruster').setRotation(1.57);
     this.add([this.#shipEngineThrusterSprite, this.#shipEngineSprite, this.#shipSprite]);
 
     this.#keyboardInputComponent = new KeyboardInputComponent(this.scene);
@@ -66,7 +66,7 @@ export class Player extends Phaser.GameObjects.Container {
         interval: CONFIG.PLAYER_BULLET_INTERVAL,
         lifespan: CONFIG.PLAYER_BULLET_LIFESPAN,
         maxCount: CONFIG.PLAYER_BULLET_MAX_COUNT,
-        yOffset: -20,
+        xOffset: 20,
         flipY: false,
       },
       this.#eventBusComponent
@@ -157,7 +157,7 @@ export class Player extends Phaser.GameObjects.Container {
     this.#shipEngineThrusterSprite.setVisible(true);
     this.#shipSprite.setTexture('ship', 0);
     this.#healthComponent.reset();
-    this.setPosition(this.scene.scale.width / 2, this.scene.scale.height - 32);
+    this.setPosition(32, this.scene.scale.height / 2);
     this.#keyboardInputComponent.lockInput = false;
   }
 }

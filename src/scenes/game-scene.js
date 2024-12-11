@@ -25,9 +25,20 @@ export class GameScene extends Phaser.Scene {
    */
   create() {
     // backgrounds
-    this.add.sprite(0, 0, 'bg1', 0).setOrigin(0, 1).setAlpha(0.7).play('bg1').setAngle(90).setScale(1, 1.25);
-    this.add.sprite(0, 0, 'bg2', 0).setOrigin(0, 1).setAlpha(0.7).play('bg2').setAngle(90).setScale(1, 1.25);
-    this.add.sprite(0, 0, 'bg3', 0).setOrigin(0, 1).setAlpha(0.7).play('bg3').setAngle(90).setScale(1, 1.25);
+    this.bg1 = this.add.tileSprite(0, 0, this.scale.width, this.scale.height, 'bg1').setOrigin(0, 0).setAlpha(0.7);
+    this.bg2 = this.add.tileSprite(0, 0, this.scale.width, this.scale.height, 'bg2').setOrigin(0, 0).setAlpha(0.7);
+    this.bg3 = this.add.tileSprite(0, 0, this.scale.width, this.scale.height, 'bg3').setOrigin(0, 0).setAlpha(0.7);
+
+    // Example: Animate the backgrounds if needed
+    this.time.addEvent({
+      delay: 16, // 60 FPS
+      callback: () => {
+        this.bg1.tilePositionX += 0.5; // Adjust speed as needed
+        this.bg2.tilePositionX += 0.3;
+        this.bg3.tilePositionX += 0.1;
+      },
+      loop: true,
+    });
     // common components
     const eventBusComponent = new EventBusComponent();
 
