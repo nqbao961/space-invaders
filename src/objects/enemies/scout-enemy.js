@@ -23,12 +23,12 @@ export class ScoutEnemy extends Phaser.GameObjects.Container {
     this.#isInitialized = false;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
-    this.body.setSize(24, 24);
-    this.body.setOffset(-12, -12);
+    this.body.setSize(48, 48);
+    this.body.setOffset(-24, -24);
 
-    this.#shipSprite = scene.add.sprite(0, 0, 'scout', 0).setRotation(1.57);
-    this.#shipEngineSprite = scene.add.sprite(0, 0, 'scout_engine').setFlipY(true).setRotation(1.57);
-    this.#shipEngineSprite.play('scout_engine').setRotation(1.57);
+    this.#shipSprite = scene.add.sprite(0, 0, 'scout', 0).setRotation(1.57).setScale(2);
+    this.#shipEngineSprite = scene.add.sprite(0, 0, 'scout_engine').setFlipY(true).setRotation(1.57).setScale(2);
+    this.#shipEngineSprite.play('scout_engine').setRotation(1.57).setScale(2);
     this.add([this.#shipEngineSprite, this.#shipSprite]);
 
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);

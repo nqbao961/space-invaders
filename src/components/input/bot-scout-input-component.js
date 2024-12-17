@@ -19,12 +19,12 @@ export class BotScoutInputComponent extends InputComponent {
    * calculating how far an enemy can move left and right before switching directions.
    * @type {number}
    */
-  #startX;
+  #startY;
   /**
-   * How far the enemy will move horizontally across the screen before moving in the other direction.
+   * How far the enemy will move vertically across the screen before moving in the other direction.
    * @type {number}
    */
-  #maxXMovement;
+  #maxYMovement;
 
   /**
    * @param {Phaser.GameObjects.Container} gameObject
@@ -32,10 +32,8 @@ export class BotScoutInputComponent extends InputComponent {
   constructor(gameObject) {
     super();
     this.#gameObject = gameObject;
-    this.#startX = this.#gameObject.x;
-    this.#maxXMovement = CONFIG.ENEMY_SCOUT_MOVEMENT_MAX_X;
-    // this._right = true;
-    // this._left = false;
+    this.#startY = this.#gameObject.y;
+    this.#maxYMovement = CONFIG.ENEMY_SCOUT_MOVEMENT_MAX_Y;
     this._down = false;
     this._left = true;
     this._up = true;
@@ -47,8 +45,8 @@ export class BotScoutInputComponent extends InputComponent {
    * @param {number} val
    * @returns {void}
    */
-  set startX(val) {
-    this.#startX = val;
+  set startY(val) {
+    this.#startY = val;
   }
 
   /**
@@ -57,20 +55,12 @@ export class BotScoutInputComponent extends InputComponent {
    * @returns {void}
    */
   update() {
-    setInterval(() => {
-      this._down = true;
-      this._up = false;
-    }, 300);
-    setInterval(() => {
+    if (this.#gameObject.y > this.#startY + this.#maxYMovement) {
       this._down = false;
       this._up = true;
-    }, 500);
-    if (this.#gameObject.x > this.#startX + this.#maxXMovement) {
-      // this._left = true;
-      // this._right = false;
-    } else if (this.#gameObject.x < this.#startX - this.#maxXMovement) {
-      // this._left = false;
-      // this._right = true;
+    } else if (this.#gameObject.y < this.#startY - this.#maxYMovement) {
+      this._down = true;
+      this.up = false;
     }
   }
 }

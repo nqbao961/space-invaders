@@ -3,6 +3,7 @@ import { CUSTOM_EVENTS, EventBusComponent } from '../components/events/event-bus
 import { HealthComponent } from '../components/health/health-component.js';
 import { KeyboardInputComponent } from '../components/input/keyboard-input-component.js';
 import { HorizontalMovementComponent } from '../components/movement/horizontal-movement-component.js';
+import { VerticalMovementComponent } from '../components/movement/vertical-movement-component.js';
 import { WeaponComponent } from '../components/weapon/weapon-component.js';
 import * as CONFIG from '../config.js';
 
@@ -19,6 +20,8 @@ export class Player extends Phaser.GameObjects.Container {
   #weaponComponent;
   /** @type {HorizontalMovementComponent} */
   #horizontalMovementComponent;
+  /** @type {VerticalMovementComponent} */
+  #verticalMovementComponent;
   /** @type {ColliderComponent} */
   #colliderComponent;
   /** @type {EventBusComponent} */
@@ -41,19 +44,24 @@ export class Player extends Phaser.GameObjects.Container {
     // add game object to scene and enabled physics body
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
-    this.body.setSize(24, 24);
-    this.body.setOffset(-12, -12);
+    this.body.setSize(48, 48);
+    this.body.setOffset(-24, -24);
     this.body.setCollideWorldBounds(true);
     this.setDepth(2);
 
-    this.#shipSprite = scene.add.sprite(0, 0, 'ship').setRotation(1.57);
-    this.#shipEngineSprite = scene.add.sprite(0, 0, 'ship_engine').setRotation(1.57);
-    this.#shipEngineThrusterSprite = scene.add.sprite(0, 0, 'ship_engine_thruster').setRotation(1.57);
-    this.#shipEngineThrusterSprite.play('ship_engine_thruster').setRotation(1.57);
+    this.#shipSprite = scene.add.sprite(0, 0, 'ship').setRotation(1.57).setScale(2);
+    this.#shipEngineSprite = scene.add.sprite(0, 0, 'ship_engine').setRotation(1.57).setScale(2);
+    this.#shipEngineThrusterSprite = scene.add.sprite(0, 0, 'ship_engine_thruster').setRotation(1.57).setScale(2);
+    this.#shipEngineThrusterSprite.play('ship_engine_thruster').setRotation(1.57).setScale(2);
     this.add([this.#shipEngineThrusterSprite, this.#shipEngineSprite, this.#shipSprite]);
 
     this.#keyboardInputComponent = new KeyboardInputComponent(this.scene);
     this.#horizontalMovementComponent = new HorizontalMovementComponent(
+      this,
+      this.#keyboardInputComponent,
+      CONFIG.PLAYER_MOVEMENT_HORIZONTAL_VELOCITY
+    );
+    this.#verticalMovementComponent = new VerticalMovementComponent(
       this,
       this.#keyboardInputComponent,
       CONFIG.PLAYER_MOVEMENT_HORIZONTAL_VELOCITY
@@ -133,6 +141,7 @@ export class Player extends Phaser.GameObjects.Container {
     this.#shipSprite.setFrame((CONFIG.PLAYER_HEALTH - this.#healthComponent.life).toString(10));
     this.#keyboardInputComponent.update();
     this.#horizontalMovementComponent.update();
+    this.#verticalMovementComponent.update();
     this.#weaponComponent.update(dt);
   }
 
@@ -157,7 +166,7 @@ export class Player extends Phaser.GameObjects.Container {
     this.#shipEngineThrusterSprite.setVisible(true);
     this.#shipSprite.setTexture('ship', 0);
     this.#healthComponent.reset();
-    this.setPosition(32, this.scene.scale.height / 2);
+    this.setPosition(112, this.scene.scale.height / 2);
     this.#keyboardInputComponent.lockInput = false;
   }
 }

@@ -48,6 +48,12 @@ export class Lives extends Phaser.GameObjects.Container {
         .setOrigin(0.5);
 
       this.#eventBusComponent.emit(CUSTOM_EVENTS.GAME_OVER);
+
+      document.body.onkeyup = function (e) {
+        if (e.key == ' ' || e.code == 'Space') {
+          location.reload();
+        }
+      };
     });
 
     this.#eventBusComponent.emit(CUSTOM_EVENTS.PLAYER_SPAWN);

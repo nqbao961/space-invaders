@@ -98,7 +98,7 @@ export class WeaponComponent {
       bullet.body.velocity.x += this.#bulletConfig.speed;
       bullet.setState(this.#bulletConfig.lifespan);
       bullet.play('bullet');
-      bullet.setScale(0.8);
+      bullet.setScale(1.6);
       bullet.body.setSize(14, 18);
       bullet.setFlipY(this.#bulletConfig.flipY);
       bullet.setRotation(1.57);
