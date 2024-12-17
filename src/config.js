@@ -3,7 +3,7 @@ export const PLAYER_LIVES = 3;
 export const PLAYER_HEALTH = 4;
 export const PLAYER_BULLET_SPEED = 300;
 export const PLAYER_BULLET_INTERVAL = 300;
-export const PLAYER_BULLET_LIFESPAN = 5;
+export const PLAYER_BULLET_LIFESPAN = 100;
 export const PLAYER_BULLET_MAX_COUNT = 10;
 export const PLAYER_MOVEMENT_HORIZONTAL_VELOCITY = 20;
 
